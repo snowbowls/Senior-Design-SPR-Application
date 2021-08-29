@@ -60,9 +60,9 @@ This section should list any major frameworks that you built your project using.
 <!-- CONTRI -->
 ## Contributors
 
-Robert Ballentine, PSE
-Robin Howell, PSE
-James Henderson, CpE
+Robert Ballentine, PSE <br />
+Robin Howell, PSE <br />
+James Henderson, CpE <br />
 
 <!-- LICENSE -->
 ## License
