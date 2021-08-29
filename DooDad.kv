@@ -1,0 +1,92 @@
+#:kivy 2.0.0
+
+<ImageTest>:
+    orientation: "vertical"
+    img: image
+
+    Image:
+        id: image
+        nocache: True
+
+    BoxLayout:
+
+        size_hint_y: 0.1
+        Button:
+            text: 'Show'
+            on_press: root.show_icon()
+
+        Button:
+            text: 'Switch'
+            on_press: root.switch()
+
+
+<ButtonTest>:
+
+<AsyncTest>:
+    orientation: "vertical"
+    img: asyn_image
+
+    AsyncImage:
+        id: asyn_image
+        nocache: True
+
+    BoxLayout:
+
+        size_hint_y: 0.1
+        Button:
+            text: 'Show'
+            on_press: root.show_icon()
+
+        Button:
+            text: 'Switch'
+            on_press: root.switch()
+
+<LayoutTest>:
+    img: image
+
+    BoxLayout:
+        spacing: 10
+        padding: 10,10,10,0
+        orientation: "horizontal"
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: 0.3,1
+            canvas:
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            Image
+                id: image
+                nocache: True
+
+            Label:
+                size_hint: 1,0.3
+                text: root.your_time
+                color: [0,0,0,1]
+
+        Button:
+            text: ""
+
+    BoxLayout:
+        padding: 10,10,10,0
+        spacing: 10
+        size_hint: 1,0.3
+        orientation: "horizontal"
+        Button:
+            text: 'Show'
+            on_press: root.show_icon()
+        Button:
+            text: 'Switch'
+            on_press: root.switch()
+        Button:
+            text: "YEET"
+        Button:
+            text: "YEET"
+        Button:
+            text: "YEET"
+
+    BoxLayout:
+        padding: 10,10,10,10
+        size_hint: 1,0.3
+        Button:
+            text: ">>>>>>>>"
