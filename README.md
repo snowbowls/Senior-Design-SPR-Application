@@ -27,7 +27,7 @@
         <li><a href="#built-with">Built With</a></li>
       </ul>
     </li>
-    <li><a href="#contri">Contributors</a></li>
+    <li><a href="#contributors">Contributors</a></li>
     <li><a href="#license">License</a></li>
   </ol>
 </details>
