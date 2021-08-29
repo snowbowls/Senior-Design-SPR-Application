@@ -39,7 +39,7 @@
 
  <img src="images/spr.jpg" alt="Logo" width="600" height="200">
 
-This application is intended to be used with a custom design casing that houses a laser, several mirrors and lenses, a prism, (some other shit that I’m too lazy to figure out right now), a microcontroller unit with an embedded camera, and finally a power supply unit that uses either an internal battery or AC adaptor.
+This application is intended to be used with a custom designed casing that houses a laser, several mirrors and lenses, a prism, (some other shit that I’m too lazy to figure out right now), a microcontroller unit with an embedded camera, and finally a power supply unit that uses either an internal battery or AC adaptor.
 
 Here is a list of planned features for the software:
 * Binary control of the laser diode to preform excitation
