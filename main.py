@@ -24,7 +24,7 @@ from kivy.network.urlrequest import UrlRequest
 from functools import partial
 
 capUrl = 'http://192.168.1.189/capture'
-capimg = Image(source="capture.png")
+capimg = Image(source="images/capture.png")
 
 times = []
 
@@ -40,7 +40,7 @@ class LayoutTest(BoxLayout):
 
         self.padding = 10
 
-        self.img.source = "cap.png"
+        self.img.source = "images/cap.png"
 
         Clock.schedule_interval(self.set_time, 0.1)
 
@@ -54,7 +54,7 @@ class LayoutTest(BoxLayout):
         self.your_time = time.strftime("%m/%d/%Y %H:%M")
 
     def show_icon(self, bruh_why_am_i_here):
-        self.img.source = "capture.png"
+        self.img.source = "images/capture.png"
 
     def switch(self, bruh_why_am_i_here):
         self.img.reload()
