@@ -5,12 +5,12 @@
     <img src="images/logo.png" alt="Logo" width="180" height="180">
   </a>
 
-  <h3 align="center">Best-README-Template</h3>
+  <h3 align="center">Surface Plasmon Resonance Application</h3>
 
   <p align="center">
-    WHAT
+    Eventually, we're gonna have a really cool name
     <br />
-    <a href="https://github.com/snowbowls/Senior-Design-SPR-Applicatio"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/snowbowls/Senior-Design-SPR-Application"><strong>Explore the docs »</strong></a>
     <br />
     <br />
   </p>
