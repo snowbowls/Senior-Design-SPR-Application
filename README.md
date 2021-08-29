@@ -37,11 +37,11 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Placeholder Picture][product-screenshot]](https://example.com)
+ <img src="images/spr.jpg" alt="Logo" width="600" height="200">
 
-There are many great README templates available on GitHub, however, I didn't find one that really suit my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
+This application is intended to be used with a custom design casing that houses a laser, several mirrors and lenses, a prism, (some other shit that I’m too lazy to figure out right now), a microcontroller unit with an embedded camera, and finally a power supply unit that uses either an internal battery or AC adaptor.
 
-Here's why:
+Here is a list of intended :
 * Your time should be focused on creating something amazing. A project that solves a problem and helps others
 * You shouldn't be doing the same tasks over and over like creating a README from scratch
 * You should implement DRY principles to the rest of your life :smile:
