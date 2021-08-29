@@ -8,9 +8,8 @@
   <h3 align="center">Surface Plasmon Resonance Application</h3>
 
   <p align="center">
-    Eventually, we're gonna have a really cool name
+    Eventually, we're gonna have a really cool name and a really cool description
     <br />
-    <a href="https://github.com/snowbowls/Senior-Design-SPR-Application"><strong>Explore the docs »</strong></a>
     <br />
     <br />
   </p>
