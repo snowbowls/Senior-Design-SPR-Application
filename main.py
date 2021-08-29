@@ -26,6 +26,7 @@ from functools import partial
 capUrl = 'http://192.168.1.189/capture'
 capimg = Image(source="images/capture.png")
 
+
 times = []
 
 
