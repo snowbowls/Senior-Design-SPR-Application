@@ -8,9 +8,9 @@
   <h3 align="center">Best-README-Template</h3>
 
   <p align="center">
-    An awesome README template to jumpstart your projects!
+    WHAT
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/snowbowls/Senior-Design-SPR-Applicatio"><strong>Explore the docs »</strong></a>
     <br />
     <br />
   </p>
