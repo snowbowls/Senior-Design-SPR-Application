@@ -27,6 +27,7 @@
         <li><a href="#built-with">Built With</a></li>
       </ul>
     </li>
+    <li><a href="#contri">Contributors</a></li>
     <li><a href="#license">License</a></li>
   </ol>
 </details>
@@ -56,6 +57,12 @@ This section should list any major frameworks that you built your project using.
 * [JQuery](https://jquery.com)
 * [Laravel](https://laravel.com)
 
+<!-- CONTRI -->
+## Contributors
+
+Robert Ballentine, PSE
+Robin Howell, PSE
+James Henderson, CpE
 
 <!-- LICENSE -->
 ## License
