@@ -39,16 +39,18 @@
 
  <img src="images/spr.jpg" alt="Logo" width="600" height="200">
 
-This application is intended to be used with a custom design casing that houses a laser, several mirrors and lenses, a prism, (some other shit that I’m too lazy to figure out right now), a microcontroller unit with an embedded camera, and finally a power supply unit that uses either an internal battery or AC adaptor.
+This application is intended to be used with a custom designed casing that houses a laser, several mirrors and lenses, a prism, (some other shit that I’m too lazy to figure out right now), a microcontroller unit with an embedded camera, and finally a power supply unit that uses either an internal battery or AC adaptor.
 
-Here is a list of intended :
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should implement DRY principles to the rest of your life :smile:
+Here is a list of planned features for the software:
+* Binary control of the laser diode to preform excitation
+* Management of data capture rate and pixel density
+* View battery life of the internal LiPo battery
+* View, store, and manipulate captured data from current or past experiments
+* There's gonan be some other stuff too, just you wait ... I just gotta think of them
 
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
+I need coffee.
 
-A list of commonly used resources that I find helpful are listed in the acknowledgements.
+A list of commonly used resources such as plugins and addons that I found helpful are listed in the acknowledgements.
 
 ### Built With
 
