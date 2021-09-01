@@ -28,8 +28,10 @@ capUrl = 'https://image.shutterstock.com/image-vector/default-word-digital-style
 capimg = Image(source="images/capture.png")
 
 times = []
-cap_avg = 0
+sched_val = 0.325
+ex_avg = 0
 cap_cnt = 0
+fps_val = 0
 
 
 class ButtonTest(Widget):
@@ -44,7 +46,8 @@ def imagegrabhandler(self, *args):
 
 def imagegrab(self, start, *args):
     global cap_cnt
-    global cap_avg
+    global ex_avg
+    global fps_val
 
     urllib.request.urlretrieve(
         capUrl, "images\capture.png")
@@ -53,7 +56,8 @@ def imagegrab(self, start, *args):
     print("--- %s seconds ---" % (times[-1]))
 
     cap_cnt += 1
-    cap_avg = numpy.mean(times)
+    ex_avg = numpy.format_float_positional(numpy.mean(times), precision=5)
+    fps_val = numpy.format_float_positional(1 / (numpy.mean(times) + sched_val), precision=2)
 
 
 def update(self):
@@ -65,7 +69,9 @@ class LayoutTest(BoxLayout):
     img = ObjectProperty()
 
     count = StringProperty()
-    capavg = StringProperty()
+    exavg = StringProperty()
+    fps = StringProperty()
+    exint = StringProperty()
 
     def __init__(self, **kwargs):
         super(LayoutTest, self).__init__(**kwargs)
@@ -81,9 +87,9 @@ class LayoutTest(BoxLayout):
 
     def start_capture(self):
         imagegrabhandler(self)
-        Clock.schedule_interval(imagegrabhandler, 0.5)
-        Clock.schedule_once(self.switch, 0.6)
-        Clock.schedule_interval(self.refresh, 0.5)
+        Clock.schedule_interval(imagegrabhandler, sched_val)
+        Clock.schedule_once(self.switch, sched_val + 0.1)
+        Clock.schedule_interval(self.refresh, sched_val)
 
     def stop_capture(self):
         self.switch(0)
@@ -93,7 +99,9 @@ class LayoutTest(BoxLayout):
 
     def stat(self, dt):
         self.count = str(cap_cnt)
-        self.capavg = str(cap_avg)
+        self.exavg = str(ex_avg)
+        self.fps = str(fps_val)
+        self.exint = str(sched_val)
 
     def set_time(self, dt):
         self.your_time = time.strftime("%m/%d/%Y  -  %I:%M %p")
