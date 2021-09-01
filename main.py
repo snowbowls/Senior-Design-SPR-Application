@@ -23,7 +23,8 @@ import os
 from kivy.network.urlrequest import UrlRequest
 from functools import partial
 
-capUrl = 'http://192.168.1.189/capture'
+# capUrl = 'http://192.168.1.189/capture'
+capUrl = 'https://image.shutterstock.com/image-vector/default-word-digital-style-glowing-600w-1668796114.jpg'
 capimg = Image(source="images/capture.png")
 
 times = []
@@ -40,23 +41,24 @@ class LayoutTest(BoxLayout):
 
         self.padding = 10
 
-        self.img.source = "images\placeholder.png"
+        self.img.source = "images\default.png"
 
         Clock.schedule_interval(self.set_time, 0.1)
 
-        ImageTest().imagegrabhandler()
-
-        Clock.schedule_once(self.show_icon, 1)
-
-        Clock.schedule_interval(self.switch, 0.5)
+        # ImageTest().imagegrabhandler()
+        
+    def start_capture(self):
+        ImageTest().sched()
+        Clock.schedule_once(self.switch, 1)
+        Clock.schedule_interval(self.refresh, 0.5)
 
     def set_time(self, dt):
         self.your_time = time.strftime("%m/%d/%Y %H:%M")
 
-    def show_icon(self, bruh_why_am_i_here):
+    def switch(self, bruh_why_am_i_here):
         self.img.source = "images\capture.png"
 
-    def switch(self, bruh_why_am_i_here):
+    def refresh(self, bruh_why_am_i_here):
         self.img.reload()
 
 
@@ -83,21 +85,12 @@ class ImageTest(Image):
         capimg.reload()
 
 
-class NewImageTest(BoxLayout):
-
-    def show_icon(self):
-        self.img.source = "capture.png"
-
-    def switch(self):
-        self.img.reload()
-
-
 class DooDadApp(App):
     def build(self):
         root = LayoutTest()
 
-        root.add_widget(ButtonTest())
-        ImageTest().sched()
+        # root.add_widget(ButtonTest())
+        # ImageTest().sched()
         return root
 
     def run_cap(self, *args):
