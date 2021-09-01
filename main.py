@@ -45,12 +45,16 @@ class LayoutTest(BoxLayout):
 
         Clock.schedule_interval(self.set_time, 0.1)
 
-        # ImageTest().imagegrabhandler()
-        
     def start_capture(self):
+        ImageTest().imagegrabhandler()
         ImageTest().sched()
-        Clock.schedule_once(self.switch, 1)
+        Clock.schedule_once(self.switch, 0.15)
         Clock.schedule_interval(self.refresh, 0.5)
+
+    def stop_capture(self):
+        ImageTest().end_sched()
+        Clock.schedule_once(self.switch, 0.15).cancel()
+        Clock.schedule_interval(self.refresh, 0.5).cancel()
 
     def set_time(self, dt):
         self.your_time = time.strftime("%m/%d/%Y %H:%M")
@@ -69,6 +73,9 @@ class ButtonTest(Widget):
 class ImageTest(Image):
     def sched(self):
         Clock.schedule_interval(ImageTest.imagegrabhandler, 0.5)
+
+    def end_sched(self):
+        Clock.schedule_interval(ImageTest.imagegrabhandler, 0.5).cancel()
 
     def imagegrabhandler(self, *args):
         start = time.time()
