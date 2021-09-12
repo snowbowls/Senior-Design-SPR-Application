@@ -117,7 +117,7 @@ class LayoutTest(BoxLayout):
         self.img.reload()
 
 
-class DooDadApp(App):
+class FASSPRApp(App):
     def build(self):
         root = LayoutTest()
 
@@ -135,4 +135,4 @@ class DooDadApp(App):
 
 
 if __name__ == '__main__':
-    DooDadApp().run()
+    FASSPRApp().run()

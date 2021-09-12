@@ -1,0 +1,75 @@
+#:kivy 2.0.0
+
+
+<LayoutTest@BoxLayout>:
+    canvas:
+        Rectangle:
+            pos: self.pos
+            source: 'images/background.png'
+            size: self.size
+
+
+<LayoutTest>:
+    img: image
+
+    BoxLayout:
+        spacing: 10
+        padding: 10,10,10,0
+        orientation: "horizontal"
+
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: 1.5,1
+            canvas:
+                Color:
+                    rgb: .6, .6, .6
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            Image
+                id: image
+                nocache: True
+
+            Label:
+                size_hint: 0.5,0.1
+                text: root.your_time
+                color: [0,0,0,1]
+
+        BoxLayout:
+            canvas:
+                Color:
+                    rgb: .6, .6, .6
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            Label:
+                pos_hint: {'x':0.5,'center_y':0.5}
+                color: [0,0,0,1]
+                text: "Execution Interval: " + root.exint +"\nAverage Runtime: " + root.exavg + "\nCapture Count: " + root.count + "\nFPS: " + root.fps
+
+    BoxLayout:
+        padding: 10,10,10,0
+        spacing: 10
+        size_hint: 1,0.3
+        orientation: "horizontal"
+
+        Button:
+            text: 'Start Capture'
+            on_press: root.start_capture()
+        Button:
+            text: 'Stop Capture'
+            on_press: root.stop_capture()
+        Button:
+            text: "Toggle Laser"
+        Button:
+            text: "Rotation Platform"
+        Button:
+            text: "Check Battery"
+
+    BoxLayout:
+
+        padding: 10,10,10,10
+        size_hint: 1,0.3
+        Button:
+            text: "Restart MCU"
