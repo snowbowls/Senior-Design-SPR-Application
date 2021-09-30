@@ -48,7 +48,7 @@ def get_brightness_level():
     global levels
     while True:
         mx = 99
-        if len(levels) >= 1000:
+        if len(levels) >= 300:
             levels = []
         levels.append(mx)
 
@@ -57,6 +57,8 @@ def get_brightness():
     global levels
     im = Image.open("images\capture.png").convert('L')
     stat = ImageStat.Stat(im)
+    if len(levels) >= 300:
+        levels = []
     levels.append(stat.rms[0])
     print("--- %s bright ---" % stat.rms[0])
 
@@ -135,7 +137,7 @@ class LayoutTest(BoxLayout):
         self.exint = str(sched_val)
 
     def get_value(self, dt):
-        self.plot.points = [(i, j) for i, j in enumerate(levels)]
+        self.plot.points = [(i/2, j) for i, j in enumerate(levels)]
 
     def set_time(self, dt):
         self.your_time = time.strftime("%m/%d/%Y  -  %I:%M %p")
