@@ -32,10 +32,23 @@
                 nocache: True
 
             Label:
-                size_hint: 0.5,0.1
+                size_hint: 0.8,0.1
                 text: root.your_time
                 color: [0,0,0,1]
-
+        BoxLayout:
+            size_hint: [1.6, .8]
+            Graph:
+                id: graph
+                xlabel: "Time (s)"
+                ylabel: "Brightness"
+                x_ticks_major: 150
+                y_ticks_major:255
+                x_grid_label: True
+                y_grid_label: True
+                xmin:0
+                xmax:150
+                ymin:0
+                ymax:255
         BoxLayout:
             canvas:
                 Color:

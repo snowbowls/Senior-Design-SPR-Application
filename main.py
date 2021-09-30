@@ -23,19 +23,42 @@ import os
 from kivy.network.urlrequest import UrlRequest
 from functools import partial
 
-# capUrl = 'http://192.168.1.189/capture'
-capUrl = 'https://image.shutterstock.com/image-vector/default-word-digital-style-glowing-600w-1668796114.jpg'
-capimg = Image(source="images/capture.png")
+from kivy_garden.graph import Graph, MeshLinePlot
+from threading import Thread
+from PIL import Image, ImageStat, ImageFile
+ImageFile.LOAD_TRUNCATED_IMAGES = True
+
+capUrl = 'http://192.168.1.189/capture'
+# capUrl = 'https://www.neenahpaper.com/-/media/images/storefront/chips/environment-papers/environment-papers-ultra-bright-white-smooth.ashx'
+capimg = kivy.uix.image.Image(source="images/capture.png")
 
 times = []
-sched_val = 0.325
+sched_val = 0.265
 ex_avg = 0
 cap_cnt = 0
 fps_val = 0
 
 
+
 class ButtonTest(Widget):
     pass
+
+
+def get_brightness_level():
+    global levels
+    while True:
+        mx = 99
+        if len(levels) >= 1000:
+            levels = []
+        levels.append(mx)
+
+
+def get_brightness():
+    global levels
+    im = Image.open("images\capture.png").convert('L')
+    stat = ImageStat.Stat(im)
+    levels.append(stat.rms[0])
+    print("--- %s bright ---" % stat.rms[0])
 
 
 def imagegrabhandler(self, *args):
@@ -58,6 +81,8 @@ def imagegrab(self, start, *args):
     cap_cnt += 1
     ex_avg = numpy.format_float_positional(numpy.mean(times), precision=5)
     fps_val = numpy.format_float_positional(1 / (numpy.mean(times) + sched_val), precision=2)
+
+    get_brightness()
 
 
 def update(self):
@@ -82,10 +107,15 @@ class LayoutTest(BoxLayout):
 
         self.img.source = "images\default.png"
 
+        self.plot = MeshLinePlot(color=[1, 0, 0, 1])
+
         Clock.schedule_interval(self.set_time, 0.1)
         Clock.schedule_interval(self.stat, 0.5)
 
     def start_capture(self):
+        self.ids.graph.add_plot(self.plot)
+        Clock.schedule_interval(self.get_value, 0.325)
+
         imagegrabhandler(self)
         Clock.schedule_interval(imagegrabhandler, sched_val)
         Clock.schedule_once(self.switch, sched_val + 0.1)
@@ -96,12 +126,16 @@ class LayoutTest(BoxLayout):
         # WOOOOOEE THERE, maybe don't use these slow methods
         Clock.unschedule(imagegrabhandler)
         Clock.unschedule(self.refresh)
+        Clock.unschedule(self.get_value)
 
     def stat(self, dt):
         self.count = str(cap_cnt)
         self.exavg = str(ex_avg)
         self.fps = str(fps_val)
         self.exint = str(sched_val)
+
+    def get_value(self, dt):
+        self.plot.points = [(i, j) for i, j in enumerate(levels)]
 
     def set_time(self, dt):
         self.your_time = time.strftime("%m/%d/%Y  -  %I:%M %p")
@@ -135,4 +169,8 @@ class FASSPRApp(App):
 
 
 if __name__ == '__main__':
+    levels = []
+    get_level_thread = Thread(target=get_brightness_level)
+    get_level_thread.daemon = True
+    #get_level_thread.start()
     FASSPRApp().run()
