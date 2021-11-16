@@ -33,9 +33,9 @@ ImageFile.LOAD_TRUNCATED_IMAGES = True
 #   Pass: yeetyeet
 #   IP: 192.168.4.1
 
-# capurl = 'http://192.168.4.1/capture'
-capUrl = 'http://192.168.1.189/capture'
-# capUrl = 'https://www.neenahpaper.com/-/media/images/storefront/chips/environment-papers/environment-papers-ultra-bright-white-smooth.ashx'
+# capUrl = 'http://192.168.4.1/capture'
+# capUrl = 'http://192.168.1.189/capture'
+capUrl = 'https://www.neenahpaper.com/-/media/images/storefront/chips/environment-papers/environment-papers-ultra-bright-white-smooth.ashx'
 capimg = kivy.uix.image.Image(source="images/capture.png")
 
 times = []
