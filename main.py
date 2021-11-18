@@ -113,6 +113,7 @@ class LayoutTest(BoxLayout):
     inten = StringProperty()
 
     isShownStats = BooleanProperty(True)
+    isShownMenu = BooleanProperty(False)
 
     def __init__(self, **kwargs):
         super(LayoutTest, self).__init__(**kwargs)
