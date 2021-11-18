@@ -110,10 +110,12 @@ class LayoutTest(BoxLayout):
     exavg = StringProperty()
     fps = StringProperty()
     exint = StringProperty()
-    inten = StringProperty()
+    highinten = StringProperty()
+    lowinten = StringProperty()
 
     isShownStats = BooleanProperty(True)
     isShownMenu = BooleanProperty(False)
+    isCapture = BooleanProperty(False)
 
     def __init__(self, **kwargs):
         super(LayoutTest, self).__init__(**kwargs)
@@ -127,7 +129,9 @@ class LayoutTest(BoxLayout):
         self.plot = MeshLinePlot(color=[1, 0, 0, 1])
 
         Clock.schedule_interval(self.set_time, 0.1)
-        Clock.schedule_interval(self.stat, 0.5)
+
+    def experiment(self):
+        pass
 
     def start_capture(self):
         self.ids.graph.add_plot(self.plot)
@@ -137,6 +141,7 @@ class LayoutTest(BoxLayout):
         Clock.schedule_interval(imagegrabhandler, sched_val)
         Clock.schedule_once(self.switch, sched_val + 0.1)
         Clock.schedule_interval(self.refresh, sched_val)
+        Clock.schedule_interval(self.stat, 0.5)
 
     def stop_capture(self):
         self.switch(0)
@@ -144,6 +149,7 @@ class LayoutTest(BoxLayout):
         Clock.unschedule(imagegrabhandler)
         Clock.unschedule(self.refresh)
         Clock.unschedule(self.get_value)
+        Clock.unschedule(self.stat)
 
     def stat(self, dt):
         self.count = str(cap_cnt)
@@ -153,7 +159,9 @@ class LayoutTest(BoxLayout):
 
     def get_value(self, dt):
         self.plot.points = [(i/2, j) for i, j in enumerate(levels)]
-        self.inten = str(levels[len(levels) - 1])
+
+        self.highinten = str(max(levels))
+        self.lowinten = str(min(levels))
 
     def set_time(self, dt):
         self.your_time = time.strftime("%m/%d/%Y  -  %I:%M %p")
@@ -167,6 +175,17 @@ class LayoutTest(BoxLayout):
 
     def refresh(self, bruh_why_am_i_here):
         self.img.reload()
+
+    def clear_values(self):
+        global levels
+        levels = []
+        self.plot.points = [(i / 2, j) for i, j in enumerate(levels)]
+        self.count = str(0)
+        self.exavg = str(0)
+        self.fps = str(0)
+        self.exint = str(0)
+        self.lowinten = str(0)
+        self.highinten = str(0)
 
 
 class FASSPRApp(App):
