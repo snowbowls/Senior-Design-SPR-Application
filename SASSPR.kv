@@ -1,0 +1,121 @@
+#:kivy 2.0.0
+#:import utils kivy.utils
+
+
+
+<Main>:
+    img: image
+
+    BoxLayout:
+        orientation: "vertical"
+
+
+        canvas:
+            Color:
+                rgb: .6, .6, .6
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Image:
+            id: image
+            nocache: True
+            size_hint: 0.5,0.5
+            pos_hint: {"right":1, "top":1.05}
+            canvas:
+                Color:
+                    rgb: .9, .6, .6
+                Rectangle:
+                    pos: 1, 1.05
+                    size: 50,50
+
+    Label:
+        opacity: 1 if root.isShownStats else 0
+        pos_hint: {"right":1.325, "top": 0.6}
+        text: root.your_time + "\nExecution Interval: " + root.exint +"\nAverage Runtime: " + root.exavg + "\nCapture Count: " + root.count + "\nFPS: " + root.fps
+        color: [0,0,0,1]
+
+
+    Graph:
+        id: graph
+        pos_hint: {"x": 0.05, "top": 1}
+        size_hint: 0.4 , 0.4
+
+
+        xlabel: "Time (s)"
+        ylabel: "Brightness"
+        x_ticks_major: 150
+        y_ticks_major:255
+        x_grid_label: True
+        y_grid_label: True
+        xmin:0
+        xmax:150
+        ymin:0
+        ymax:255
+
+    Graph:
+        opacity: 1 if root.isShownGraph else 0
+        xlabel:'Algorithms'
+        ylabel:'Accuracy'
+        y_grid_label:True
+        x_grid_label:True
+        padding:5
+        x_grid:True
+        y_grid:True
+        xmin:-0
+        xmax:3
+        ymin:0
+        ymax:100
+        pos_hint: {"x": 0.1, "top": 1}
+        size_hint: 0.4 , 0.4
+
+    GridLayout:
+        cols: 3
+        Button: # <--- Show / Hide button
+            size: (15,8)
+            size_hint: (None, 1)
+            text: "|"
+            background_color: utils.get_color_from_hex('#005F73')
+            on_press: root.isShownMenu = not root.isShownMenu
+
+        BoxLayout: # <--- I want to show/hide this menu
+            id: menu
+            orientation: 'vertical'
+            width: 120 if root.isShownMenu else 0
+            hight: 120
+            size_hint: (None, 1)
+            opacity: 1 if root.isShownMenu else 0
+
+            Button:
+                text: "Start Experiment"
+                background_color: utils.get_color_from_hex('#253B6A') if self.state == 'normal' else utils.get_color_from_hex('#332d62')
+                background_normal: ''
+                background_down: ''
+                on_press:
+                    root.isShownMenu = not root.isShownMenu
+            Button:
+                text: "Toggle Capture"
+                background_color: utils.get_color_from_hex('#32746D') if self.state == 'normal' else utils.get_color_from_hex('#332d62')
+                background_normal: ''
+                background_down: ''
+                on_press:
+                    #root.stop_capture() if root.isCaptureOn else root.start_capture();
+                    root.isCaptureOn = not root.isCaptureOn;
+                    root.isShownMenu = not root.isShownMenu
+            Button:
+                text: "Switch Graph"
+                background_color: utils.get_color_from_hex('#778DA9') if self.state == 'normal' else utils.get_color_from_hex('#332d62')
+                background_normal: ''
+                background_down: ''
+                on_press:
+                    root.isShownMenu = not root.isShownMenu
+            Button:
+                background_color: utils.get_color_from_hex('#ADAA71') if self.state == 'normal' else utils.get_color_from_hex('#332d62')
+                background_normal: ''
+                background_down: ''
+                text: "Show Stats"
+
+                on_press:
+                    root.isShownStats = not root.isShownStats;
+                    root.isShownMenu = not root.isShownMenu
+

@@ -7,9 +7,14 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.widget import Widget
 from kivy.uix.image import Image, AsyncImage
 from kivy.uix.label import Label
+from kivy.app import App
+from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.lang import Builder
 
 from kivy.properties import StringProperty
-from kivy.properties import  ObjectProperty
+from kivy.properties import ObjectProperty
+from kivy.properties import BooleanProperty
+
 
 from kivy.loader import Loader
 
@@ -23,7 +28,8 @@ import os
 from kivy.network.urlrequest import UrlRequest
 from functools import partial
 
-from kivy_garden.graph import Graph, MeshLinePlot
+from kivy_garden.graph import Graph, MeshLinePlot, BarPlot
+
 from threading import Thread
 from PIL import Image, ImageStat, ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
@@ -43,7 +49,6 @@ sched_val = 0.265
 ex_avg = 0
 cap_cnt = 0
 fps_val = 0
-
 
 
 class ButtonTest(Widget):
@@ -105,6 +110,9 @@ class LayoutTest(BoxLayout):
     exavg = StringProperty()
     fps = StringProperty()
     exint = StringProperty()
+    inten = StringProperty()
+
+    isShownStats = BooleanProperty(True)
 
     def __init__(self, **kwargs):
         super(LayoutTest, self).__init__(**kwargs)
@@ -144,6 +152,7 @@ class LayoutTest(BoxLayout):
 
     def get_value(self, dt):
         self.plot.points = [(i/2, j) for i, j in enumerate(levels)]
+        self.inten = str(levels[len(levels) - 1])
 
     def set_time(self, dt):
         self.your_time = time.strftime("%m/%d/%Y  -  %I:%M %p")
@@ -175,10 +184,104 @@ class FASSPRApp(App):
     def update_label(self, i, *args):
         print(i)
 
+## --------------------------------------------------------------------------------------------------------------------
+
+import itertools
+
+from kivy.utils import get_color_from_hex as rgb
+
+colors = itertools.cycle([rgb('7dac9f'), rgb('dc7062'), rgb('66a8d4'), rgb('e5b060')])
+
+
+class SASSPRRoot(BoxLayout):
+    img = ObjectProperty()
+
+    # def __init__(self, **kwargs):
+    #     super().__init__(**kwargs)
+
+    def showtest(self):
+        self.clear_widgets()
+        self.img = Testy()
+        self.add_widget(self.img)
+
+
+class Testy(BoxLayout):
+    ree = ObjectProperty
+
+
+class List(BoxLayout):
+    but = ObjectProperty()
+
+
+class Main(Screen):
+    img = ObjectProperty()
+    isShownMenu = BooleanProperty(False)
+    isShownStats = BooleanProperty(True)
+    isCaptureOn = BooleanProperty(False)
+    isShownGraph = BooleanProperty(False)
+
+    your_time = StringProperty()
+
+    count = StringProperty()
+    exavg = StringProperty()
+    fps = StringProperty()
+    exint = StringProperty()
+
+
+    def __init__(self, **kwargs):
+        super(Main, self).__init__(**kwargs)
+        self.img.source = "images\default.png"
+
+    def reset_plots(self, graph):
+        for plot in self.plot:
+            plot.bind_to_graph(graph)
+            plot.points = []
+
+    def start_capture(self):
+        self.ids.graph.add_plot(self.plot)
+        Clock.schedule_interval(self.get_value, 0.325)
+
+        imagegrabhandler(self)
+        Clock.schedule_interval(imagegrabhandler, sched_val)
+        Clock.schedule_once(self.switch, sched_val + 0.1)
+        Clock.schedule_interval(self.refresh, sched_val)
+        Clock.schedule_interval(self.stat, 0.5)
+
+    def stop_capture(self):
+        self.switch(0)
+        # WOOOOOEE THERE, maybe don't use these slow methods
+        Clock.unschedule(imagegrabhandler)
+        Clock.unschedule(self.refresh)
+        Clock.unschedule(self.get_value)
+        Clock.unschedule(self.stat)
+
+    def stat(self, dt):
+        self.count = str(cap_cnt)
+        self.exavg = str(ex_avg)
+        self.fps = str(fps_val)
+        self.exint = str(sched_val)
+
+    def switch(self, val):
+
+        if val:
+            self.img.source = "images\capture.png"
+        else:
+            self.img.source = "images\default.png"
+
+    def refresh(self, bruh_why_am_i_here):
+        self.img.reload()
+
+    def get_value(self, dt):
+        self.plot.points = [(i/2, j) for i, j in enumerate(levels)]
+
+
+class FASSPRApp(App):
+    def build(self):
+        return LayoutTest()
+
 
 if __name__ == '__main__':
     levels = []
-    get_level_thread = Thread(target=get_brightness_level)
-    get_level_thread.daemon = True
-    #get_level_thread.start()
+    # get_level_thread = Thread(target=get_brightness_level)
+    # get_level_thread.daemon = True
     FASSPRApp().run()
