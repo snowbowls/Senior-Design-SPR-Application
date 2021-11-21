@@ -39,10 +39,13 @@ ImageFile.LOAD_TRUNCATED_IMAGES = True
 #   Pass: yeetyeet
 #   IP: 192.168.4.1
 
-# capUrl = 'http://192.168.4.1/capture'
+capUrl = 'http://192.168.4.1/capture'
 # capUrl = 'http://192.168.1.189/capture'
-capUrl = 'https://www.neenahpaper.com/-/media/images/storefront/chips/environment-papers/environment-papers-ultra-bright-white-smooth.ashx'
+# capUrl = 'https://www.neenahpaper.com/-/media/images/storefront/chips/environment-papers/environment-papers-ultra-bright-white-smooth.ashx'
 capimg = kivy.uix.image.Image(source="images/capture.png")
+
+logs = 0
+
 
 times = []
 sched_val = 0.265
@@ -102,6 +105,10 @@ def update(self):
     capimg.reload()
 
 
+class Progress(Screen):
+    pass
+
+
 class LayoutTest(BoxLayout):
     your_time = StringProperty()
     img = ObjectProperty()
@@ -113,7 +120,13 @@ class LayoutTest(BoxLayout):
     highinten = StringProperty()
     lowinten = StringProperty()
 
+    log1min = StringProperty()
+    log1max = StringProperty()
+    log2min = StringProperty()
+    log2max = StringProperty()
+
     isShownStats = BooleanProperty(True)
+    isShownLog = BooleanProperty(False)
     isShownMenu = BooleanProperty(False)
     isCapture = BooleanProperty(False)
 
@@ -130,8 +143,21 @@ class LayoutTest(BoxLayout):
 
         Clock.schedule_interval(self.set_time, 0.1)
 
-    def experiment(self):
-        pass
+    def logdata(self):
+        global logs
+        if len(levels) > 1:
+            if logs == 0:
+                self.log1max = str(round(max(levels)))
+                self.log1min = str(round(min(levels)))
+                logs = 1
+            else:
+                self.log2max = str(round(max(levels)))
+                self.log2min = str(round(min(levels)))
+                logs = 0
+
+
+
+
 
     def start_capture(self):
         self.ids.graph.add_plot(self.plot)
@@ -160,8 +186,9 @@ class LayoutTest(BoxLayout):
     def get_value(self, dt):
         self.plot.points = [(i/2, j) for i, j in enumerate(levels)]
 
-        self.highinten = str(max(levels))
-        self.lowinten = str(min(levels))
+        if len(levels) > 1:
+            self.highinten = str(round(max(levels)))
+            self.lowinten = str(round(min(levels)))
 
     def set_time(self, dt):
         self.your_time = time.strftime("%m/%d/%Y  -  %I:%M %p")
@@ -186,9 +213,13 @@ class LayoutTest(BoxLayout):
         self.exint = str(0)
         self.lowinten = str(0)
         self.highinten = str(0)
+        self.log1max = str(0)
+        self.log1min = str(0)
+        self.log2max = str(0)
+        self.log2min = str(0)
 
 
-class FASSPRApp(App):
+class FASSPRAppa(App):
     def build(self):
         root = LayoutTest()
 
